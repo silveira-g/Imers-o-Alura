@@ -22,9 +22,13 @@ public class App {
 
                 // exibir e manupular os dados
                 for (Map<String,String> serie : listaDeSeries) {
-                    System.out.println("\u001b[1m Titulo: \u001b[m" + serie.get("title"));
+                    System.out.println("\u001b[1m \u001b[44m Titulo: \u001b[m \u001b[m" + serie.get("title"));
                     System.out.println(serie.get("image"));
-                    System.out.println(serie.get("imDbRating"));
+                    double classificar = Double.parseDouble(serie.get("imDbRating"));
+                    int numeroCoracoes = (int) classificar;
+                    for (int i=0; i<=numeroCoracoes; i++) {
+                        System.out.print("💙️");
+                    }
                     System.out.println();
                 }
     }
