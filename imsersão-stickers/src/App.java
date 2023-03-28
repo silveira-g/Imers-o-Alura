@@ -9,7 +9,7 @@ import java.util.Map;
 public class App {
     public static void main(String[] args) throws Exception {
                 // fazer uma conexão HTTP e buscar os top 250 filmes
-                String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
+                String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularTVs.json";
                 URI endereco = URI.create(url);
                 var client = HttpClient.newHttpClient();
                 HttpRequest request = HttpRequest.newBuilder(endereco).GET().build();
@@ -18,15 +18,14 @@ public class App {
 
                 // pegar somente os dados que interessam (titulo, poster, classificação)
                 var parser = new Parser();
-                List<Map<String, String>> listaDeFilmes = parser.parse(body);
-                System.out.println(listaDeFilmes.size());
-                System.out.println(listaDeFilmes);
+                List<Map<String, String>> listaDeSeries = parser.parse(body);
 
                 // exibir e manupular os dados
-                for (Map<String,String> filme : listaDeFilmes) {
-                    System.out.println(filme.get("title"));
-                    System.out.println(filme.get("image"));
-                    System.out.println(filme.get("imDbRating"));
+                for (Map<String,String> serie : listaDeSeries) {
+                    System.out.println("\u001b[1m Titulo: \u001b[m" + serie.get("title"));
+                    System.out.println(serie.get("image"));
+                    System.out.println(serie.get("imDbRating"));
+                    System.out.println();
                 }
     }
 }
