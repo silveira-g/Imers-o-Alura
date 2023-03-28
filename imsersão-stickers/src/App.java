@@ -26,9 +26,11 @@ public class App {
                     System.out.println(serie.get("image"));
                     double classificar = Double.parseDouble(serie.get("imDbRating"));
                     int numeroCoracoes = (int) classificar;
+                    System.out.println("\u001b[1m \u001b[46m Avaliação: \u001b[m \u001b[m" + classificar);
                     for (int i=0; i<=numeroCoracoes; i++) {
                         System.out.print("💙️");
                     }
+                    System.out.println();
                     System.out.println();
                 }
     }
