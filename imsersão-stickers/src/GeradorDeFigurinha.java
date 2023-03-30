@@ -15,7 +15,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 public class GeradorDeFigurinha {
-    public void cria(InputStream inputStream, String nomeArquivo) throws Exception{
+    public void cria(InputStream inputStream, String nomeArquivo, String texto) throws Exception{
         //leitura da imagem
         BufferedImage imagemOriginal = ImageIO.read(inputStream);
 
@@ -37,7 +37,6 @@ public class GeradorDeFigurinha {
         grafico.setFont(fonte);
 
         //escrever uma frase na nova imagem
-        String texto = "SHOW";
         FontMetrics fontMetrics =  grafico.getFontMetrics();
         Rectangle2D retangulo = fontMetrics.getStringBounds(texto, grafico);
         double larguraRetangulo = (int) retangulo.getWidth();

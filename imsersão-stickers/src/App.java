@@ -26,6 +26,7 @@ public class App {
                 // exibir e manupular os dados
                 var diretorio = new File("figurinhas/");
                 diretorio.mkdir();
+                String texto = "Nem perca tempo";
                 for (Map<String,String> serie : listaDeSeries) {
                     String urlImagem = serie.get("image");
                     String titulo = serie.get("title");
@@ -34,10 +35,28 @@ public class App {
 
                     String nomeArquivo = "figurinhas/" + titulo + ".png";
 
+                    
+                    String nota = serie.get("imDbRating");
+                    double notaD = Double.parseDouble(nota);
 
-                    geradora.cria(inputStream, nomeArquivo);
+                    if (notaD == 10 || notaD>=8.5){ 
+                        texto="INCRIVEL!!!";
+                    }
+                    
+                    if (notaD <= 8.4 || notaD<=6){ 
+                        texto="Bom";
+                    }
+                    
+                    if (notaD >= 6 && notaD<=5){ 
+                        texto="Mediano";
+                    }
+                    
+
+
+                    geradora.cria(inputStream, nomeArquivo, texto);
 
                     System.out.println("\u001b[1m \u001b[44m Titulo: \u001b[m \u001b[m" + serie.get("title"));
+                    System.out.println(notaD);
                     System.out.println();
                 }
     }
