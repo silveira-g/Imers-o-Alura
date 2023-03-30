@@ -3,14 +3,14 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
 public class GeradorDeFigurinha {
-    public void cria() throws Exception{
+    public void cria(InputStream inputStream, String nomeArquivo) throws Exception{
         //leitura da imagem
-        BufferedImage imagemOriginal = ImageIO.read(new File("entrada/serie.jpg"));
+        BufferedImage imagemOriginal = ImageIO.read(inputStream);
 
 
         //cria nova imagem em memoria com transparencia e tamanho novo
@@ -33,10 +33,7 @@ public class GeradorDeFigurinha {
         grafico.drawString("SHOW", (novaLargura/2)-100, novaAltura-100);     
 
         //escrever a nova imagem em um arquivo
-        ImageIO.write(novaImgagem, "png", new File("saida/figurinha.png"));
+        ImageIO.write(novaImgagem, "png", new File(nomeArquivo));
     }
-    public static void main(String[] args) throws Exception {
-        var geradora = new GeradorDeFigurinha();
-        geradora.cria();
-    }
+
 }

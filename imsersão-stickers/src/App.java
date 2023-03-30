@@ -1,4 +1,6 @@
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -19,18 +21,18 @@ public class App {
                 // pegar somente os dados que interessam (titulo, poster, classificação)
                 var parser = new Parser();
                 List<Map<String, String>> listaDeSeries = parser.parse(body);
-
+                var geradora = new GeradorDeFigurinha();
                 // exibir e manupular os dados
                 for (Map<String,String> serie : listaDeSeries) {
+                    String urlImagem = serie.get("image");
+                    String titulo = serie.get("title");
+                    InputStream inputStream = new URL(urlImagem).openStream();
+                    String nomeArquivo = titulo + ".png";
+
+
+                    geradora.cria(inputStream, nomeArquivo);
+
                     System.out.println("\u001b[1m \u001b[44m Titulo: \u001b[m \u001b[m" + serie.get("title"));
-                    System.out.println(serie.get("image"));
-                    double classificar = Double.parseDouble(serie.get("imDbRating"));
-                    int numeroCoracoes = (int) classificar;
-                    System.out.println("\u001b[1m \u001b[46m Avaliação: \u001b[m \u001b[m" + classificar);
-                    for (int i=0; i<=numeroCoracoes; i++) {
-                        System.out.print("💙️");
-                    }
-                    System.out.println();
                     System.out.println();
                 }
     }
