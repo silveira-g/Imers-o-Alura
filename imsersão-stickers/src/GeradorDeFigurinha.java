@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
@@ -30,7 +32,12 @@ public class GeradorDeFigurinha {
         grafico.setFont(fonte);
 
         //escrever uma frase na nova imagem
-        grafico.drawString("SHOW", (novaLargura/2)-100, novaAltura-100);     
+        String texto = "SHOW";
+        FontMetrics fontMetrics =  grafico.getFontMetrics();
+        Rectangle2D retangulo = fontMetrics.getStringBounds(texto, grafico);
+        double larguraRetangulo = (int) retangulo.getWidth();
+        double larguraFinal = (novaLargura-larguraRetangulo)/2;
+        grafico.drawString(texto, (int) larguraFinal, novaAltura-100);     
 
         //escrever a nova imagem em um arquivo
         ImageIO.write(novaImgagem, "png", new File(nomeArquivo));
