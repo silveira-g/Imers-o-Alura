@@ -15,10 +15,10 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 public class GeradorDeFigurinha {
-    public void cria(InputStream inputStream, String nomeArquivo, String texto) throws Exception{
+    public void cria(InputStream inputStream, String nomeArquivo, String texto, InputStream meme) throws Exception{
         //leitura da imagem
         BufferedImage imagemOriginal = ImageIO.read(inputStream);
-
+        BufferedImage memeSobreposto = ImageIO.read(meme);
 
         //cria nova imagem em memoria com transparencia e tamanho novo
         int largura = imagemOriginal.getWidth();
@@ -30,6 +30,8 @@ public class GeradorDeFigurinha {
         //copiar imagem original pra nova (em memória)
         Graphics2D grafico = (Graphics2D) novaImgagem.getGraphics();
         grafico.drawImage(imagemOriginal, 0, 0, null);
+        int alturaPosicaoMeme = novaAltura-memeSobreposto.getHeight();
+        grafico.drawImage(memeSobreposto, 0, alturaPosicaoMeme, null);
 
         //configurar a fonte
         var fonte = new Font("Impact", Font.BOLD, 64);

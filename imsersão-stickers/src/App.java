@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
@@ -8,6 +9,8 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.stream.ImageInputStream;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -22,8 +25,8 @@ public class App {
                 // pegar somente os dados que interessam (titulo, poster, classificação)
                 var parser = new Parser();
                 List<Map<String, String>> listaDeSeries = parser.parse(body);
-                var geradora = new GeradorDeFigurinha();
                 // exibir e manupular os dados
+                var geradora = new GeradorDeFigurinha();
                 var diretorio = new File("figurinhas/");
                 diretorio.mkdir();
                 String texto = "Nem perca tempo";
@@ -38,22 +41,21 @@ public class App {
                     
                     String nota = serie.get("imDbRating");
                     double notaD = Double.parseDouble(nota);
-
-                    if (notaD == 10 || notaD>=8.5){ 
+                    InputStream meme = new FileInputStream(new File("sobreposicao/perdadetempo.png"));
+                    if (notaD>=8.5){ 
                         texto="INCRIVEL!!!";
-                    }
+                        meme = new FileInputStream(new File("sobreposicao/incrivel.png"));
+                    } else if (notaD>=6){
+                        texto="Série ok";
+                        meme = new FileInputStream(new File("sobreposicao/ok.png"));
+                    } 
+
                     
-                    if (notaD <= 8.4 || notaD<=6){ 
-                        texto="Bom";
-                    }
                     
-                    if (notaD >= 6 && notaD<=5){ 
-                        texto="Mediano";
-                    }
                     
 
 
-                    geradora.cria(inputStream, nomeArquivo, texto);
+                    geradora.cria(inputStream, nomeArquivo, texto, meme);
 
                     System.out.println("\u001b[1m \u001b[44m Titulo: \u001b[m \u001b[m" + serie.get("title"));
                     System.out.println(notaD);
