@@ -28,8 +28,8 @@ public class App {
         String texto = "Show";
         
         for ( Conteudo conteudo : conteudos) {
-            String urlImagem = conteudo.getUrlImagem();
-            String titulo = conteudo.getTitulo();
+            String urlImagem = conteudo.urlImage();
+            String titulo = conteudo.titulo();
 
             InputStream inputStream = new URL(urlImagem).openStream();
 
@@ -37,7 +37,7 @@ public class App {
 
             geradora.cria(inputStream, nomeArquivo, texto);
 
-            System.out.println("\u001b[1m \u001b[44m Titulo: \u001b[m \u001b[m" + conteudo.getTitulo());
+            System.out.println("\u001b[1m \u001b[44m Titulo: \u001b[m \u001b[m" + conteudo.titulo());
             System.out.println();
         }
     }
