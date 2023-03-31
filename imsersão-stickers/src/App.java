@@ -6,11 +6,11 @@ import java.util.List;
 public class App {
     public static void main(String[] args) throws Exception {
         // fazer uma conexão HTTP e buscar os top 250 filmes
-        String url = 
-        "https://api.nasa.gov/planetary/apod?api_key=9FgV5L3mhRNZW5bVNThHMKhhtEAKyoJLOs5zKkA3&start_date=2022-10-13&end_date=2022-10-15";
-        var extrator = new ExtratorDeConteudoDaNasa();
+        API api = API.NASA;
+        String url = api.getUrl();
+        String texto = api.getTexto();
+        var extrator = api.getExtratorDeConteudo();
 
-        // String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularTVs.json";
         // var extrator = new ExtratorDeConteudoDaImdb();
         var http = new ClienteHttp();
 
@@ -25,7 +25,7 @@ public class App {
         var geradora = new GeradorDeFigurinha();
         var diretorio = new File("figurinhas/");
         diretorio.mkdir();
-        String texto = "Show";
+
         
         for ( Conteudo conteudo : conteudos) {
             String urlImagem = conteudo.urlImage();
